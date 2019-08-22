@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--What to display on tab header-->
+		<title>About Shazil</title>
+		
+		<!--Favicon-->		
+		<link rel="shortcut icon" type="image/x-icon" href="./images/logo.png"/>	
+		
+		<!--Link CSS file-->
+		<link href="./CSS/style.css"type="text/css" rel="stylesheet">
+		<style>
+			/*Parallax Wallpaper*/				
+			.parallax {
+				/* The image used */
+				background-image: url('./images/aboutbackground.svg');
+				}
+		</style>
+	</head>
+	
+	<!--What is shown to the viewer-->
+	<body>
+	
+		<!--Navigation Bar-->
+		<nav>
+			<ul class="navbar">
+				<hlogo>SCVAIR</hlogo> 
+				<li><a href="./index.html">Home</a></li>
+				<li><a href="./contact.html">Contact</a></li>
+			<div class="dropdown">
+				<button class="dropbtn">Products
+					<i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-content">
+					<a href="./smart_vent.html">Smart Air Vent</a>
+				</div>
+			</div>
+			</ul>
+		</nav>
+		
+		<!--Background behind the main heading-->
+		<div class="parallax"></div>
+		
+		<!--Main Heading-->
+		<h1 class=mainheader>Contact Us</h1>
+		
+		<p>This company focuses on the fundamentals of the home environment. The goal is to develop and create innovative things that help the consumer call their home a comfortable place at an affordable price.</p>
+
+		<!--Contact Information Table Heading-->
+		<h2 style = "margin-top:-100px" >Contact Information</h2>
+	
+		<!--Table with contact information-->
+		<table>
+		<tbody>
+		  <tr>
+			<th>Address</th>
+			<td>100 City Centre Dr, Mississauga, ON L5B 2C9</td>
+		  </tr>
+		  <tr>
+			<th>Phone Number</th>
+			<td>416-279-7467</td>
+		  </tr>
+		  <tr>
+			<th>CEO</th>
+			<td>Shaz Raz</td>
+		  </tr>
+		  </tbody>
+		</table>
+
+		<!--Form-->
+		<div id="sign_up">
+		
+			<!--Sign Up Form for Emails on Website Updates-->
+			<p id=register>Want to be notified whenever the website is updated? If so, register here!</p>
+			<form>
+				What is your name?<br>
+				<input type="text" name="firstname">
+				<br>
+				What is your email address?<br>
+				<input type="text" name="lastname">
+				<br><br>
+				<main>
+				  <div class="button">
+					<div class="text">Submit</div>
+				  </div>
+				  <div class="progress-bar"></div>
+				  <svg x="0px" y="0px"
+					 viewBox="0 0 25 30" style="enable-background:new 0 0 25 30;">
+					<path class="check" class="st0" d="M2,19.2C5.9,23.6,9.4,28,9.4,28L23,2"/>
+				  </svg>
+				</main>
+				<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+				<script src='https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.js'></script>
+				<script  src="js/index.js"></script>
+			</form>
+			
+			<!--Display/Hide Function-->	
+			<script>
+				var x = document.getElementById("sign_up");		
+				x.style.display = "none";
+				
+				function myFunction() {
+					var x = document.getElementById("sign_up");		
+					if (x.style.display === "none") {
+						x.style.display = "block";
+					} else {
+						x.style.display = "none";
+					}
+				}
+			</script>
+		</div>
+
+		<!--Footer-->		
+		<footer>
+		
+			<!--Contact the Company-->
+			<h4>
+				Written by <a href="mailto:635992@pdsb.net">Shaz R</a><br>
+				Postal Box 564, Mississauga<br>
+				Canada
+			</h4>
+
+			<!--Website Logo-->	
+			<div class=logo>
+				<img class=logo_img_style src="./images/logo.png"/>
+			</div>
+			
+			<!--Button-->	
+			<div class=buttons>
+							
+				<!--Display/Hide Form Button-->			
+				<button class="fbutton fbutton1" onclick="myFunction()" style="margin-top:60px">Sign Up for Updates!</button><br>
+				
+			</div>
+		</footer>
+	</body>
+</html>

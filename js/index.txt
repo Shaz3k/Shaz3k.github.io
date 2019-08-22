@@ -1,0 +1,290 @@
+//Mailing List Button
+var basicTimeline = anime.timeline({
+  autoplay: false
+});
+
+var pathEls = $(".check");
+for (var i = 0; i < pathEls.length; i++) {
+  var pathEl = pathEls[i];
+  var offset = anime.setDashoffset(pathEl);
+  pathEl.setAttribute("stroke-dashoffset", offset);
+}
+
+basicTimeline
+  .add({
+    targets: ".text",
+    duration: 1,
+    opacity: "0"
+  })
+  .add({
+    targets: ".button",
+    duration: 1300,
+    height: 20,
+    width: 300,
+    backgroundColor: "#2B2D2F",
+    border: "0",
+    borderRadius: 100
+  })
+ 
+//Loading Animation
+  .add({
+    targets: ".progress-bar",
+    duration: 2000,
+    width: 300,
+    easing: "linear"
+  })
+  .add({
+    targets: ".button",
+    width: 0,
+    duration: 1
+  })
+  .add({
+    targets: ".progress-bar",
+    width: 80,
+    height: 80,
+    delay: 500,
+    duration: 750,
+    borderRadius: 80,
+    backgroundColor: "#71DFBE"
+  })
+  .add({
+    targets: pathEl,
+    strokeDashoffset: [offset, 0],
+    duration: 200,
+    easing: "easeInOutSine"
+  });
+
+$(".button").click(function() {
+  basicTimeline.play();
+});
+
+$(".text").click(function() {
+  basicTimeline.play();
+});
+
+//Clock 
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var radius = canvas.height / 2;
+ctx.translate(radius, radius);
+radius = radius * 0.90
+setInterval(drawClock, 1000);
+
+//Drawing
+function drawClock() {
+  drawFace(ctx, radius);
+  drawNumbers(ctx, radius);
+  drawTime(ctx, radius);
+}
+
+function drawFace(ctx, radius) {
+  var grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, radius, 0, 2*Math.PI);
+  ctx.fillStyle = 'white';
+  ctx.fill();
+  grad = ctx.createRadialGradient(0,0,radius*0.95, 0,0,radius*1.05);
+  grad.addColorStop(0, '#333');
+  grad.addColorStop(0.5, 'white');
+  grad.addColorStop(1, '#333');
+  ctx.strokeStyle = grad;
+  ctx.lineWidth = radius*0.1;
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(0, 0, radius*0.1, 0, 2*Math.PI);
+  ctx.fillStyle = '#333';
+  ctx.fill();
+}
+
+function drawNumbers(ctx, radius) {
+  var ang;
+  var num;
+  ctx.font = radius*0.15 + "px arial";
+  ctx.textBaseline="middle";
+  ctx.textAlign="center";
+  for(num = 1; num < 13; num++){
+    ang = num * Math.PI / 6;
+    ctx.rotate(ang);
+    ctx.translate(0, -radius*0.85);
+    ctx.rotate(-ang);
+    ctx.fillText(num.toString(), 0, 0);
+    ctx.rotate(ang);
+    ctx.translate(0, radius*0.85);
+    ctx.rotate(-ang);
+  }
+}
+
+function drawTime(ctx, radius){
+    var now = new Date();
+    var hour = now.getHours();
+    var minute = now.getMinutes();
+    var second = now.getSeconds();
+    hour=hour%12;
+    hour=(hour*Math.PI/6)+
+    (minute*Math.PI/(6*60))+
+    (second*Math.PI/(360*60));
+    drawHand(ctx, hour, radius*0.5, radius*0.07);
+    minute=(minute*Math.PI/30)+(second*Math.PI/(30*60));
+    drawHand(ctx, minute, radius*0.8, radius*0.07);
+    second=(second*Math.PI/30);
+    drawHand(ctx, second, radius*0.9, radius*0.02);
+}
+
+function drawHand(ctx, pos, length, width) {
+    ctx.beginPath();
+    ctx.lineWidth = width;
+    ctx.lineCap = "round";
+    ctx.moveTo(0,0);
+    ctx.rotate(pos);
+    ctx.lineTo(0, -length);
+    ctx.stroke();
+    ctx.rotate(-pos);
+}
+
+//Calculator
+function takeValue(x) {
+	document.getElementById('inputwindow').value += x;
+}
+
+function clearInput(y) {
+	document.getElementById('inputwindow').value = y;
+}
+
+function calculateResult() {
+	var result = eval(document.getElementById('inputwindow').value);
+	document.getElementById('inputwindow').value = result;
+}
+
+//Snake
+$(document).ready(function(){
+	var canvas = $("#snake")[0];
+	var ctx = canvas.getContext("2d");
+	var w = $("#snake").width();
+	var h = $("#snake").height();
+	
+	var cw = 10;
+	var d;
+  var food;
+	var score;
+   var level;
+	
+	//Create the Snake
+	var snake_array;
+	
+	function init()
+	{
+		d = "right"; //Default Direction
+		create_snake();
+		create_food(); //Food Particle
+		//Display Score
+		score = 0;
+     level = 1;
+		//Trigger the Paint Function Every 60ms
+		if(typeof game_loop != "undefined") clearInterval(game_loop);
+		game_loop = setInterval(paint, 100);
+	}
+	init();
+	
+	function create_snake()
+	{
+		var length = 5; //Length of the Snake
+		snake_array = [];
+		for(var i = length-1; i>=0; i--)
+		{
+			//Create Horizontal Snake Starting From the Top Left
+			snake_array.push({x: i, y:0});
+		}
+	}
+	
+	//Lets create the food now
+	function create_food()
+	{
+		food = {
+			x: Math.round(Math.random()*(w-cw)/cw), 
+			y: Math.round(Math.random()*(h-cw)/cw), 
+		};
+	}
+	
+	//Paint the Snake
+	function paint()
+	{
+		ctx.fillStyle = "white";
+		ctx.fillRect(0, 0, w, h);
+		ctx.strokeStyle = "black";
+		ctx.strokeRect(0, 0, w, h);
+
+		var nx = snake_array[0].x;
+		var ny = snake_array[0].y;
+		if(d == "right") nx++;
+		else if(d == "left") nx--;
+		else if(d == "up") ny--;
+		else if(d == "down") ny++;
+		
+		if(nx == -1 || nx == w/cw || ny == -1 || ny == h/cw || check_collision(nx, ny, snake_array))
+		{
+			//Restart Game
+			init();
+			return;
+		}
+		
+		//Eating the food
+		if(nx == food.x && ny == food.y)
+		{
+			var tail = {x: nx, y: ny};
+			score++;
+       
+			//Create New Food
+			create_food();
+		}
+		else
+		{
+			var tail = snake_array.pop(); 
+			tail.x = nx; tail.y = ny;
+		}
+		
+		snake_array.unshift(tail); //puts back the tail as the first cell
+		
+		for(var i = 0; i < snake_array.length; i++)
+		{
+			var c = snake_array[i];
+
+			paint_cell(c.x, c.y, "blue");
+		}
+		
+		//Paint Food
+		paint_cell(food.x, food.y, "red");
+		//Paint Score
+		var score_text = "Score: " + score;
+     var level_text = "Level: " + level;
+		ctx.fillText(score_text, 5, h-5);
+     ctx.fillText(level_text, 60, h-5);
+	}
+	
+	function paint_cell(x, y, color)
+	{
+		ctx.fillStyle = color;
+		ctx.fillRect(x*cw, y*cw, cw, cw);
+		ctx.strokeStyle = "white";
+		ctx.strokeRect(x*cw, y*cw, cw, cw);
+	}
+	
+	function check_collision(x, y, array)
+	{
+		//Check if X/Y Coordinates Exist in an Array of Cells or Not
+		for(var i = 0; i < array.length; i++)
+		{
+			if(array[i].x == x && array[i].y == y)
+			 return true;
+		}
+		return false;
+	}
+	
+	//Keyboard Controls
+	$(document).keydown(function(e){
+		var key = e.which;
+		if(key == "65" && d != "right") d = "left";
+		else if(key == "87" && d != "down") d = "up";
+		else if(key == "68" && d != "left") d = "right";
+		else if(key == "83" && d != "up") d = "down";
+	})
+})
