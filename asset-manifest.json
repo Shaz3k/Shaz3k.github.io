@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/ShazilR.github.io/static/css/main.39349879.css",
-    "main.js": "/ShazilR.github.io/static/js/main.9b2d6f4c.js",
-    "index.html": "/ShazilR.github.io/index.html",
-    "main.39349879.css.map": "/ShazilR.github.io/static/css/main.39349879.css.map",
-    "main.9b2d6f4c.js.map": "/ShazilR.github.io/static/js/main.9b2d6f4c.js.map"
+    "main.css": "/shazilr.me/static/css/main.39349879.css",
+    "main.js": "/shazilr.me/static/js/main.9b2d6f4c.js",
+    "index.html": "/shazilr.me/index.html",
+    "main.39349879.css.map": "/shazilr.me/static/css/main.39349879.css.map",
+    "main.9b2d6f4c.js.map": "/shazilr.me/static/js/main.9b2d6f4c.js.map"
   },
   "entrypoints": [
     "static/css/main.39349879.css",
